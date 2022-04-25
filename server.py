@@ -50,6 +50,7 @@ else:
     server_socket.listen(1)
     print('Listening on port %s ...' % SERVER_PORT)
     ctl, addr = server_socket.accept()
+    _path_ = print("Enter correct path to the files dir: ")
 
     while True:    
 	
@@ -71,13 +72,13 @@ else:
                 filename = '/index.html'
 
             try:
-                with open('/opt/lampp/htdocs/chaty/'+filename, encoding="utf8", errors='ignore') as f: #errors generated are ignored remember to change the path to your desired file path
+                with open(_path_+filename, encoding="utf8", errors='ignore') as f: #errors generated are ignored remember to change the path to your desired file path
                     #f = open('/opt/lampp/htdocs/chaty/' + filename) #this line is avoided because the server may crash when sending image files
                     content = f.read()
                     f.close()
                     response = 'HTTP/1.0 200 OK\n\n' + content
             except FileNotFoundError:
-                with open('/opt/lampp/htdocs/chaty/404err.html', encoding="utf8", errors='ignore') as e:
+                with open(_path_+'/404err.html', encoding="utf8", errors='ignore') as e: #for error file please include its real name
                     cont = e.read()
                     e.close()
                     response = 'HTTP/1.0 404 NOT FOUND\n\n'+cont
